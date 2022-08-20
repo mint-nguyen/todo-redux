@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { alpha, styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 //
-import Image from "next/image";
 // ----------------------------------------------------------------------
 
 export const RootStyle = styled("div")(() => ({
@@ -34,7 +33,7 @@ export default function LoadingScreen() {
 					ease: "easeInOut",
 					repeatDelay: 1,
 				}}>
-				<Image width="50px" height="50px" alt="" src="/logo.png" />
+				<img width="50px" height="50px" alt="" src="/logo.png" />
 			</motion.div>
 
 			<Box
