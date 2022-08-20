@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import { useDispatch } from "react-redux";
+import { Typography } from "@mui/material";
 
 const TodoAddBar: () => JSX.Element = () => {
 	const [todo, setTodo] = React.useState("");
@@ -30,7 +31,12 @@ const TodoAddBar: () => JSX.Element = () => {
 	return (
 		<Paper
 			component="form"
-			sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}>
+			sx={{
+				p: "2px 4px",
+				display: "flex",
+				alignItems: "center",
+				width: "100%",
+			}}>
 			<InputBase
 				sx={{ ml: 1, flex: 1 }}
 				placeholder="Add a new To-do"
