@@ -9,17 +9,6 @@ import store from "../redux/store";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-	console.log(store.getState());
-	const unsubscribe = store.subscribe(() =>
-		console.log("State after dispatch: ", store.getState())
-	);
-	store.dispatch({ type: "todos/todoAdded", payload: "Learn about actions" });
-	store.dispatch({ type: "todos/todoAdded", payload: "Learn about reducers" });
-	store.dispatch({ type: "todos/todoAdded", payload: "Learn about stores" });
-
-	store.dispatch({ type: "todos/todoToggled", payload: 0 });
-	store.dispatch({ type: "todos/todoToggled", payload: 1 });
-	unsubscribe();
 	return (
 		<div className={styles.container}>
 			<Head>

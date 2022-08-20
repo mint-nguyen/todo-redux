@@ -1,9 +1,11 @@
+export type todosProps = {
+	id: number;
+	text: string;
+	completed: boolean;
+}[];
+
 const initialState: {
-	todos: {
-		id: number;
-		text: string;
-		completed: boolean;
-	}[];
+	todos: todosProps;
 } = {
 	todos: [
 		{ id: 0, text: "Learn React", completed: true },
@@ -12,13 +14,7 @@ const initialState: {
 	],
 };
 
-function nextTodoId(
-	todos: {
-		id: number;
-		text: string;
-		completed: boolean;
-	}[]
-) {
+function nextTodoId(todos: todosProps) {
 	const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
 	return maxId + 1;
 }
@@ -51,6 +47,12 @@ export default function todoReducer(state = initialState, action: any) {
 						completed: !todo.completed,
 					};
 				}),
+			};
+		}
+		case "todos/todoDeleted": {
+			return {
+				...state,
+				todos: state.todos.filter((todo) => todo.id !== action.payload),
 			};
 		}
 		default:

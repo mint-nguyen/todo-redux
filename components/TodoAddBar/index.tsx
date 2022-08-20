@@ -5,10 +5,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import { AddTodoItem } from "../TodoList/todoListItems";
+import { useDispatch } from "react-redux";
 
 const TodoAddBar: () => JSX.Element = () => {
 	const [todo, setTodo] = React.useState("");
+
+	const dispatch = useDispatch();
+
 	const onInput: (event: any) => void = (event: any) => {
 		setTodo(event.target.value);
 	};
@@ -19,8 +22,9 @@ const TodoAddBar: () => JSX.Element = () => {
 
 	const onClickDone: () => void = () => {
 		if (todo !== "") {
-			AddTodoItem(todo);
+			dispatch({ type: "todos/todoAdded", payload: todo });
 		}
+		setTodo("");
 	};
 
 	return (

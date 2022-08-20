@@ -6,34 +6,41 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import TodoListItems, { DeleteTodoItem } from "./todoListItems";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function TodoList() {
-	console.log(TodoListItems);
+	const selectTodos = (state: { todos: any }) => state.todos;
+
+	const todos = useSelector(selectTodos);
+
+	const dispatch = useDispatch();
+
+	const onClickDelete = (id: number) => {
+		dispatch({ type: "todos/todoDeleted", payload: id });
+	};
+
+	const onClickCheck = (id: number) => {
+		dispatch({ type: "todos/todoToggled", payload: id });
+	};
 	return (
 		<List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-			{TodoListItems.map((item) => {
-				const labelId = `checkbox-list-label-${item}`;
-
-				return (
-					<ListItem key={item} disablePadding>
-						<ListItemIcon>
-							<Checkbox
-								edge="start"
-								tabIndex={-1}
-								disableRipple
-								inputProps={{ "aria-labelledby": labelId }}
-							/>
-						</ListItemIcon>
-						<ListItemText id={labelId} primary={item} />
-						<ListItemIcon>
-							<IconButton>
-								<DeleteIcon />
-							</IconButton>
-						</ListItemIcon>
-					</ListItem>
-				);
-			})}
+			{todos.map((item: { id: number; text: string; completed: boolean }) => (
+				<ListItem key={item.id} disablePadding>
+					<ListItemIcon>
+						<Checkbox
+							edge="start"
+							checked={item.completed}
+							onClick={() => onClickCheck(item.id)}
+						/>
+					</ListItemIcon>
+					<ListItemText id={item.id.toString()} primary={item.text} />
+					<ListItemIcon>
+						<IconButton onClick={() => onClickDelete(item.id)}>
+							<DeleteIcon />
+						</IconButton>
+					</ListItemIcon>
+				</ListItem>
+			))}
 		</List>
 	);
 }
